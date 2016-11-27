@@ -1,0 +1,13 @@
+{
+  "name": "dydu-chrome-ext",
+  "version": "0.1.0",
+  "main": "main.js",
+  "repository": "git@github.com:fdgueux/dydu-chrome-ext.git",
+  "author": "Alexandre Le Foll <alexandre@le-foll.fr>",
+  "license": "MIT",
+  "dependencies": {
+    "js-base64": "^2.1.9",
+    "monaco-editor": "^0.7.0",
+    "normalize.css": "^5.0.0"
+  }
+}

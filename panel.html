@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
+
+        <style>
+            #container {
+                height: 500px;
+                width: 800px;
+            }
+
+            #history button {
+                color: #fff;
+                background-color: rgba(158,158,158,.4);
+                box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+                border: none;
+                border-radius: 2px;
+                position: relative;
+                height: 24px;
+                margin: 5px;
+                min-width: 48px;
+                padding: 0 16px;
+                display: inline-block;
+                font-family: "Roboto","Helvetica","Arial",sans-serif;
+                font-size: 14px;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0;
+                overflow: hidden;
+                will-change: box-shadow;
+                transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+                outline: none;
+                cursor: pointer;
+                text-decoration: none;
+                text-align: center;
+                line-height: 24px;
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container"></div>
+        <div id="history"></div>
+
+        <script src="inline.js"></script>
+        <script src="node_modules/monaco-editor/min/vs/loader.js"></script>
+        <script src="node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+        <script src="node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
+        <script src="node_modules/js-base64/base64.min.js"></script>
+
+        <script src="panel.js"></script>
+    </body>
+</html>

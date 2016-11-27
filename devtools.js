@@ -1,0 +1,1 @@
+chrome.devtools.panels.create('DYDU', null, 'panel.html');
