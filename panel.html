@@ -6,9 +6,20 @@
         <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
 
         <style>
-            #container {
-                height: 500px;
-                width: 800px;
+            html, body {
+                width: 100%;
+            }
+
+            .editors {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+            }
+
+            .editor-container {
+                height: 90vh;
+                width: 40vw;
+                flex: 1 1 auto;
             }
 
             #history button {
@@ -38,10 +49,18 @@
                 line-height: 24px;
                 vertical-align: middle;
             }
+
+            #history button.active {
+                background-color: rgb(255,64,129);
+            }
         </style>
     </head>
     <body>
-        <div id="container"></div>
+        <div class="editors">
+            <div class="editor-container" id="editorSent"></div>
+            <div class="editor-container" id="editorResponse"></div>
+        </div>
+
         <div id="history"></div>
 
         <script src="inline.js"></script>
