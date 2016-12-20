@@ -1,6 +1,6 @@
 {
-    "name": "Do You Dream Up DevTools Test",
-    "version": "0.1.0",
+    "name": "Do You Dream Up DevTools",
+    "version": "0.2.0",
     "description": "Extends the Developer Tools, adding tools for Do You Dream Up chatbox's.",
     "devtools_page": "devtools.html",
     "manifest_version": 2,

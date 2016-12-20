@@ -61,9 +61,8 @@ chrome.devtools.network.onRequestFinished.addListener((har_entry) => {
         }
 
         har_entry.getContent(function(content) {
-            if (har_entry.response.status >= 200 && har_entry.response.status < 300 && /^dydu\.(.*)\.callbacks\._([0-9]*)\(/.test(content)) {
-                requestHandler(JSON.parse(parameters.data), JSON.parse(content.replace(/^dydu\.(.*)\.callbacks\._([0-9]*)\(/, "").slice(0, -1)));
-            }
+            if (har_entry.response.status >= 200 && har_entry.response.status < 300 && /^(dydu\.(.*)|angular)\.callbacks\._([0-9][a-z]*)\(/.test(content))
+                requestHandler(JSON.parse(parameters.data), JSON.parse(content.replace(/^(dydu\.(.*)|angular)\.callbacks\._([0-9][a-z]*)\(/, "").slice(0, -1)));
         });
     }
 });
