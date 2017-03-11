@@ -3,71 +3,28 @@
     <head>
         <meta charset="UTF-8">
 
-        <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
-
-        <style>
-            html, body {
-                width: 100%;
-            }
-
-            .editors {
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-            }
-
-            .editor-container {
-                height: 90vh;
-                width: 40vw;
-                flex: 1 1 auto;
-            }
-
-            #history button {
-                color: #fff;
-                background-color: rgba(158,158,158,.4);
-                box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-                border: none;
-                border-radius: 2px;
-                position: relative;
-                height: 24px;
-                margin: 5px;
-                min-width: 48px;
-                padding: 0 16px;
-                display: inline-block;
-                font-family: "Roboto","Helvetica","Arial",sans-serif;
-                font-size: 14px;
-                font-weight: 500;
-                text-transform: uppercase;
-                letter-spacing: 0;
-                overflow: hidden;
-                will-change: box-shadow;
-                transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
-                outline: none;
-                cursor: pointer;
-                text-decoration: none;
-                text-align: center;
-                line-height: 24px;
-                vertical-align: middle;
-            }
-
-            #history button.active {
-                background-color: rgb(255,64,129);
-            }
-        </style>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <header v-bind:style="{ height: expandHeight + 'px' }">
+            <div class="history-container">
+                <button class="history" v-bind:class="{ 'active': active === index }" v-for="(request, index) in requests" v-on:click="show(request, index)">{{ index + 1}}</button>
+            </div>
+
+            <div class="expand" v-bind:class="{ 'expand-less': !expand, 'expand-more': expand }" v-on:click="expandable()"></div>
+        </header>
+
         <div class="editors">
             <div class="editor-container" id="editorSent"></div>
             <div class="editor-container" id="editorResponse"></div>
         </div>
 
-        <div id="history"></div>
+        <script src="node_modules/vue/dist/vue.js"></script>
 
         <script src="inline.js"></script>
         <script src="node_modules/monaco-editor/min/vs/loader.js"></script>
         <script src="node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
         <script src="node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
-        <script src="node_modules/js-base64/base64.min.js"></script>
 
         <script src="panel.js"></script>
     </body>

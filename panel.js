@@ -1,7 +1,44 @@
-let history = 1;
-
 let editorSent;
 let editorResponse;
+
+let transitionLayout;
+
+const expandHeight = 36;
+
+const app = new Vue({
+    el   : 'header',
+    data : {
+        active       : -1,
+        expand       : false,
+        expandHeight : expandHeight,
+        requests     : []
+    },
+    methods: {
+        show: function(request, index) {
+            app.active = index;
+
+            updateMonaco(request.message, request.response);
+        },
+
+        expandable: function() {
+            app.expand = !app.expand
+
+            let size = document.querySelector('.history-container').scrollHeight;
+
+            app.expandHeight = (app.expand) ? ((size < expandHeight) ? expandHeight : size) : expandHeight;
+
+            clearTimeout(transitionLayout);
+
+            transitionLayout = setTimeout(() => {
+                if (editorSent !== undefined)
+                    editorSent.layout();
+
+                if (editorResponse !== undefined)
+                    editorResponse.layout();
+            }, 510)
+        }
+    }
+})
 
 function updateMonaco(sent, response) {
     sent     = JSON.stringify(sent,     null, 4);
@@ -17,6 +54,7 @@ function updateMonaco(sent, response) {
         });
     } else {
         editorSent.setValue(sent);
+        editorSent.layout();
     }
 
     if (editorResponse === undefined) {
@@ -29,64 +67,36 @@ function updateMonaco(sent, response) {
         });
     } else {
         editorResponse.setValue(response);
+        editorResponse.layout();
     }
 }
 
-function decode(data) {
-    for (let prop in data) {
-        if (typeof data[prop] === "object")
-            decode(data[prop]);
-        else if (/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(data[prop]))
-            data[prop] = Base64.decode(data[prop]);
-    }
+function requestHandler(request) {
+    app.requests.push(request);
 
-    return data;
+    if (app.active === app.requests.length - 2) {
+        app.active = app.requests.length - 1;
+
+        updateMonaco(app.requests[app.active].message, app.requests[app.active].response);
+    }
 }
 
-chrome.devtools.network.onRequestFinished.addListener((har_entry) => {
-    const url = document.createElement("a");
+window.addEventListener("resize", () => {
+    if (editorSent !== undefined)
+        editorSent.layout();
 
-    url.href = har_entry.request.url;
+    if (editorResponse !== undefined)
+        editorResponse.layout();
 
-    if (url.pathname.substr(url.pathname.length - 8) === "chatHttp" && url.search.length > 1) {
-        const parameters = {};
+    let size = document.querySelector('.history-container').scrollHeight;
 
-        for (let i = 0, params = url.search.substr(1).split("&"); i < params.length; i++) {
-            let separator = params[i].indexOf("=");
+    app.expandHeight = (app.expand) ? ((size < expandHeight) ? expandHeight : size) : expandHeight;
 
-            let param = params[i].slice(0, separator);
-            let data  = params[i].slice(separator + 1);
+    transitionLayout = setTimeout(() => {
+        if (editorSent !== undefined)
+            editorSent.layout();
 
-            parameters[decodeURIComponent(param)] = data.length > 1 ? decodeURIComponent(data) : "";
-        }
-
-        har_entry.getContent(function(content) {
-            if (har_entry.response.status >= 200 && har_entry.response.status < 300 && /^(dydu\.(.*)|angular)\.callbacks\._([0-9][a-z]*)\(/.test(content))
-                requestHandler(JSON.parse(parameters.data), JSON.parse(content.replace(/^(dydu\.(.*)|angular)\.callbacks\._([0-9][a-z]*)\(/, "").slice(0, -1)));
-        });
-    }
+        if (editorResponse !== undefined)
+            editorResponse.layout();
+    }, 510)
 });
-
-function requestHandler(sent, response) {
-    const button = document.createElement('button');
-
-    button.innerText = history++;
-
-    button.addEventListener('click', (event) => {
-        const active = document.querySelector('.active');
-
-        if (active !== null)
-            active.classList.remove('active');
-
-        event.target.classList.add('active');
-
-        updateMonaco(decode(sent), decode(response));
-    }, false);
-
-    document.querySelector("#history").appendChild(button);
-
-    const buttons = document.querySelectorAll("#history button");
-
-    if (buttons.length === 1 || buttons[buttons.length - 2].classList.contains('active'))
-        buttons[buttons.length - 1].click();
-}

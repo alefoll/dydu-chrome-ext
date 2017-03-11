@@ -6,10 +6,10 @@ js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
 
-monaco-editor@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.7.0.tgz#db4ae9f9eeb8f419c7922c14e1dcdbfe33c925c4"
+monaco-editor@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.8.3.tgz#523bdf2d1524db2c2dfc3cae0a7b6edc48d6dea6"
 
-normalize.css@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-5.0.0.tgz#7cec875ce8178a5333c4de80b68ea9c18b9d7c37"
+vue@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.2.tgz#17ed34028a6ab4de855738a1d7beabdf409ee23f"

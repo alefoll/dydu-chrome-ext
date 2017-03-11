@@ -18,6 +18,9 @@
         }]
     },
     "globals": {
-        "chrome": true
+        "Base64": true,
+        "chrome": true,
+        "monaco": true,
+        "Vue": true
     }
 }
