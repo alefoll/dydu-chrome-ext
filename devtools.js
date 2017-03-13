@@ -30,11 +30,7 @@ let panel; // Going to hold the reference to panel.html's `window`
 function decode(data, parent = []) {
     const parentParam = ((parent.length > 0) ? (parent.join(".") + ".") : "");
 
-    console.log('[PARENT]' + parentParam);
-
     for (let prop in data) {
-        console.log('[PROP]' + prop);
-
         if (Base64Params.indexOf(parentParam + prop) !== -1 || Base64Params.indexOf(parentParam + "*") !== -1 || parentParam.indexOf("*") !== -1) {
             if (typeof data[prop] === "object") {
                 let copyParent = parent.slice();
