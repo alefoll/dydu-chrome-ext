@@ -5,6 +5,11 @@ let transitionLayout;
 
 const expandHeight = 36;
 
+const darkMode = window.parent.document.body.classList.contains('-theme-with-dark-background');
+
+if (darkMode)
+    document.body.classList.add('dark-mode');
+
 const app = new Vue({
     el   : 'header',
     data : {
@@ -49,7 +54,7 @@ function updateMonaco(sent, response) {
             language             : "json",
             readOnly             : true,
             scrollBeyondLastLine : false,
-            theme                : "vs-dark",
+            theme                : (darkMode) ? "vs-dark" : "vs",
             value                : sent
         });
     } else {
@@ -62,7 +67,7 @@ function updateMonaco(sent, response) {
             language             : "json",
             readOnly             : true,
             scrollBeyondLastLine : false,
-            theme                : "vs-dark",
+            theme                : (darkMode) ? "vs-dark" : "vs",
             value                : response
         });
     } else {
@@ -79,6 +84,12 @@ function requestHandler(request) {
 
         updateMonaco(app.requests[app.active].message, app.requests[app.active].response);
     }
+
+    Vue.nextTick(() => {
+        let size = document.querySelector('.history-container').scrollHeight;
+
+        app.expandHeight = (app.expand) ? ((size < expandHeight) ? expandHeight : size) : expandHeight;
+    })
 }
 
 window.addEventListener("resize", () => {

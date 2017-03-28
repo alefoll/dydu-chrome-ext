@@ -1,6 +1,6 @@
 {
   "name": "dydu-chrome-ext",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "main.js",
   "repository": "git@github.com:fdgueux/dydu-chrome-ext.git",
   "author": "Alexandre Le Foll <alexandre@le-foll.fr>",

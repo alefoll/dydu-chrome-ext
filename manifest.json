@@ -1,6 +1,6 @@
 {
     "name": "Do You Dream Up DevTools",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Extends the Developer Tools, adding tools for Do You Dream Up chatbox's.",
     "devtools_page": "devtools.html",
     "manifest_version": 2,
@@ -8,5 +8,5 @@
     "permissions": [
         "<all_urls>"
     ],
-    "minimum_chrome_version": "55.0"
+    "minimum_chrome_version": "50.0"
 }
