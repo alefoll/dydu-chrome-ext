@@ -3,9 +3,8 @@ let editorResponse;
 
 let transitionLayout;
 
+const darkMode     = window.parent.document.body.classList.contains('-theme-with-dark-background');
 const expandHeight = 36;
-
-const darkMode = window.parent.document.body.classList.contains('-theme-with-dark-background');
 
 if (darkMode)
     document.body.classList.add('dark-mode');
